@@ -1,14 +1,14 @@
 import re
 
 from fastapi_users import schemas
-from pydantic import BaseModel, validator
+from pydantic import BaseModel, field_validator
 
 
 class AdditionalUserData(BaseModel):
     phone_number: str
     role: str
 
-    @validator('phone_number')
+    @field_validator('phone_number')
     def validate_phone_number(cls, phone_number):
         pattern = r'^[78]\d{10}$'  # Паттерн: первый символ 7 или 8, затем 10 цифр
         if not re.match(pattern, phone_number):

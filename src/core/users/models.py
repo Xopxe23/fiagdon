@@ -6,6 +6,8 @@ from src.database import Base
 
 
 class User(SQLAlchemyBaseUserTable[int], Base):
+    __tablename__ = 'users'
+
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     phone_number: Mapped[str] = mapped_column(unique=True, nullable=False)
     role: Mapped[str] = mapped_column(nullable=False)
