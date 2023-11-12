@@ -21,3 +21,10 @@ class CottageCreate(BaseModel):
 
     class Config:
         from_attributes = True
+
+
+class CottageUpdate(BaseModel):
+    address: str
+    lattitude: float
+    longitude: float
+    options: Options

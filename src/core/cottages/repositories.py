@@ -1,5 +1,5 @@
 from fastapi import Depends
-from sqlalchemy import insert, select
+from sqlalchemy import and_, delete, insert, select, update
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from src.core.cottages.models import Cottage
@@ -28,6 +28,32 @@ class CottageRepository:
         result = await self.session.execute(statement)
         await self.session.commit()
         return result.scalar_one().to_read_model()
+
+    async def get_by_id(self, cottage_id: int) -> CottageRead | None:
+        query = select(Cottage).where(Cottage.id == cottage_id)
+        result = await self.session.execute(query)
+        result = result.scalar_one_or_none()
+        if result is not None:
+            return result.to_read_model()
+        return result
+
+    async def update(self, user_id: int, cottage_id: int, update_dict: dict) -> CottageRead:
+        statement = update(Cottage).where(and_(
+            Cottage.owner == user_id,
+            Cottage.id == cottage_id
+        )).values(**update_dict).returning(Cottage)
+        result = await self.session.execute(statement)
+        await self.session.commit()
+        return result.scalar_one().to_read_model()
+
+    async def delete(self, user_id: int, cottage_id: int):
+        statement = delete(Cottage).where(and_(
+            Cottage.owner == user_id,
+            Cottage.id == cottage_id
+        )).returning(Cottage.id)
+        result = await self.session.execute(statement)
+        await self.session.commit()
+        return result.scalar_one()
 
 
 async def get_cottage_db(session: AsyncSession = Depends(get_async_session)):
