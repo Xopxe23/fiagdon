@@ -1,6 +1,9 @@
-# pgAdmin connection
+# REST API для Cottage APP with Authentication JWT
 
-host: `localhost`\
-username: `postgres`\
-password: `postgres`\
-connection string: `host=localhost port=5432 dbname=postgres user=postgres sslmode=prefer connect_timeout=10`
+
+## В приложении реализованы следующие концепции:
+- Разработка Веб-Приложений на Python[FastApi], следуя дизайну REST API.
+- Подход Чистой Архитектуры в построении структуры приложения. Техника внедрения зависимости.
+- Работа с БД Postgres. Генерация файлов миграций. 
+- Работа с БД, используя библиотеку alembic
+- Регистрация и аутентификация. Работа с JWT. Middleware [FastApi-Users]

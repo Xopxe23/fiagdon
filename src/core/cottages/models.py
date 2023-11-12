@@ -1,7 +1,4 @@
-from dataclasses import dataclass
-from typing import Annotated
-
-from sqlalchemy import JSON, ForeignKey
+from sqlalchemy import ForeignKey
 from sqlalchemy.orm import Mapped, mapped_column
 
 from src.core.cottages.schemas import CottageRead

@@ -1,6 +1,4 @@
-from fastapi import Depends, HTTPException
-
-from src.core.cottages.exceptions import NoCottageWithThisId, NoPermission
+from fastapi import Depends
 from src.core.cottages.repositories import CottageRepository, get_cottage_db
 from src.core.cottages.schemas import CottageCreate, CottageRead, CottageUpdate
 
